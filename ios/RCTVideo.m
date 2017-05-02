@@ -141,6 +141,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [self removePlayerItemObservers];
+  [self removePlayerLayer];
   [_player removeObserver:self forKeyPath:playbackRate context:nil];
 }
 
