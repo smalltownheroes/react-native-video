@@ -569,10 +569,10 @@ class ReactExoplayerView extends FrameLayout implements
 
     public void setPausedModifier(boolean paused) {
         isPaused = paused;
-        String info = 'Calling setPausedModifier! ' + (paused ? 'PAUSED' : 'AUTOPLAY');
+        String info = "Calling setPausedModifier! " + (paused ? "PAUSED" : "AUTOPLAY");
         Log.w(TAG, info);
         if (player != null) {
-            Log.w(TAG, 'Player is available!');
+            Log.w(TAG, "Player is available!");
             if (!paused) {
                 startPlayback();
             } else {
