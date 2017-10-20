@@ -140,6 +140,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 - (void)dealloc
 {
   RCTLogInfo(@"########## dealloc ############");
+  [self detachListeners]
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [self removePlayerItemObservers];
   [self removePlayerLayer];
@@ -461,24 +462,32 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)attachListeners
 {
-  dispatch_async(dispatch_get_main_queue(), ^(void) {
-    // listen for end of file
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:AVPlayerItemDidPlayToEndTimeNotification
-                                                  object:[_player currentItem]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerItemDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[_player currentItem]];
+  // listen for end of file
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:AVPlayerItemDidPlayToEndTimeNotification
+                                                object:[_player currentItem]];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(playerItemDidReachEnd:)
+                                               name:AVPlayerItemDidPlayToEndTimeNotification
+                                             object:[_player currentItem]];
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:AVPlayerItemPlaybackStalledNotification
-                                                  object:[_player currentItem]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playbackStalled:)
-                                                 name:AVPlayerItemPlaybackStalledNotification
-                                               object:[_player currentItem]];
-  });
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:AVPlayerItemPlaybackStalledNotification
+                                                object:[_player currentItem]];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(playbackStalled:)
+                                               name:AVPlayerItemPlaybackStalledNotification
+                                             object:[_player currentItem]];
+}
+
+- (void) detachListeners
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:AVPlayerItemDidPlayToEndTimeNotification
+                                                object:[_player currentItem]];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:AVPlayerItemPlaybackStalledNotification
+                                                object:[_player currentItem]];
 }
 
 - (void)playbackStalled:(NSNotification *)notification
