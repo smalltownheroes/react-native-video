@@ -481,7 +481,7 @@ static NSString *const timedMetadata = @"timedMetadata";
   if (_repeat) {
     AVPlayerItem *item = [notification object];
     [item seekToTime:kCMTimeZero];
-    RCTLogInfo(@"########## seekToTime?: %@ ############", kCMTimeZero);
+    RCTLogInfo(@"########## seekToTime ############");
     [self applyModifiers];
   }
 }
