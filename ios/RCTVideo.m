@@ -333,8 +333,8 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+   RCTLogInfo(@"########## observeValueForKeyPath? %@ ############", keyPath);
    if (object == _playerItem) {
-    RCTLogInfo(@"########## observeValueForKeyPath? %@ ############", keyPath);
     // When timeMetadata is read the event onTimedMetadata is triggered
     if ([keyPath isEqualToString: timedMetadata])
     {
@@ -421,11 +421,11 @@ static NSString *const timedMetadata = @"timedMetadata";
       self.onVideoBuffer(@{@"isBuffering": @(YES), @"target": self.reactTag});
     } else if ([keyPath isEqualToString:playbackLikelyToKeepUpKeyPath]) {
       // Continue playing (or not if paused) after being paused due to hitting an unbuffered zone.
-      // if ((!(_controls || _fullscreenPlayerPresented) || _playerBufferEmpty) && _playerItem.playbackLikelyToKeepUp) {
-      //   [self setPaused:_paused];
-      // }
-      // _playerBufferEmpty = NO;
-      // self.onVideoBuffer(@{@"isBuffering": @(NO), @"target": self.reactTag});
+      if ((!(_controls || _fullscreenPlayerPresented) || _playerBufferEmpty) && _playerItem.playbackLikelyToKeepUp) {
+        [self setPaused:_paused];
+      }
+      _playerBufferEmpty = NO;
+      self.onVideoBuffer(@{@"isBuffering": @(NO), @"target": self.reactTag});
     }
    } else if (object == _playerLayer) {
       if([keyPath isEqualToString:readyForDisplayKeyPath] && [change objectForKey:NSKeyValueChangeNewKey]) {
