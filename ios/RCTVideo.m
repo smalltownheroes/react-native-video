@@ -456,11 +456,11 @@ static NSString *const timedMetadata = @"timedMetadata";
   // listen for end of file
   [[NSNotificationCenter defaultCenter] removeObserver:self
                                                   name:AVPlayerItemDidPlayToEndTimeNotification
-                                                  object:nil];
+                                                  object:[_player currentItem]];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(playerItemDidReachEnd:)
                                                name:AVPlayerItemDidPlayToEndTimeNotification
-                                             object:nil];
+                                             object:[_player currentItem]];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(playbackStalled:)
                                                name:AVPlayerItemPlaybackStalledNotification
