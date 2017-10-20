@@ -407,7 +407,7 @@ static NSString *const timedMetadata = @"timedMetadata";
                              @"target": self.reactTag});
       }
 
-
+        RCTLogInfo(@"########## onVideoLoad ############");
         [self attachListeners];
         [self applyModifiers];
       } else if(_playerItem.status == AVPlayerItemStatusFailed && self.onVideoError) {
