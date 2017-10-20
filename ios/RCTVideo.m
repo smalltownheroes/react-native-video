@@ -435,7 +435,9 @@ static NSString *const timedMetadata = @"timedMetadata";
     }
   } else if (object == _player) {
       if([keyPath isEqualToString:playbackRate]) {
+          RCTLogInfo(@"########## playbackRate ############");
           if(self.onPlaybackRateChange) {
+              RCTLogInfo(@"########## onPlaybackRateChange ############");
               self.onPlaybackRateChange(@{@"playbackRate": [NSNumber numberWithFloat:_player.rate],
                                           @"target": self.reactTag});
           }
@@ -444,10 +446,12 @@ static NSString *const timedMetadata = @"timedMetadata";
                   self.onPlaybackResume(@{@"playbackRate": [NSNumber numberWithFloat:_player.rate],
                                           @"target": self.reactTag});
               }
+              RCTLogInfo(@"########## _playbackStalled NO ############");
               _playbackStalled = NO;
           }
       }
   } else {
+      RCTLogInfo(@"########## drop off ############");
       [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
   }
 }
@@ -474,6 +478,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)playbackStalled:(NSNotification *)notification
 {
+  RCTLogInfo(@"########## playbackStalled? ############");
   if(self.onPlaybackStalled) {
     self.onPlaybackStalled(@{@"target": self.reactTag});
   }
