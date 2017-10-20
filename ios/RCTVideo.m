@@ -627,7 +627,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 
   [self setResizeMode:_resizeMode];
   [self setRepeat:_repeat];
-  RCTLogInfo(paused ? @"applyModifiers setPause true" : @"applyModifiers setPause false");
+  RCTLogInfo(_paused ? @"applyModifiers setPause true" : @"applyModifiers setPause false");
   [self setPaused:_paused];
   [self setControls:_controls];
 }
