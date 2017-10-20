@@ -424,7 +424,7 @@ static NSString *const timedMetadata = @"timedMetadata";
       // if ((!(_controls || _fullscreenPlayerPresented) || _playerBufferEmpty) && _playerItem.playbackLikelyToKeepUp) {
       //   [self setPaused:_paused];
       // }
-      _playerBufferEmpty = NO;
+      // _playerBufferEmpty = NO;
       self.onVideoBuffer(@{@"isBuffering": @(NO), @"target": self.reactTag});
     }
    } else if (object == _playerLayer) {
