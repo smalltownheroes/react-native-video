@@ -424,7 +424,7 @@ static NSString *const timedMetadata = @"timedMetadata";
       // Continue playing (or not if paused) after being paused due to hitting an unbuffered zone.
       RCTLogInfo(@"----------°°°°°°° playbackLikelyToKeepUpKeyPath °°°°°°-----------");
       if ((!(_controls || _fullscreenPlayerPresented) || _playerBufferEmpty) && _playerItem.playbackLikelyToKeepUp) {
-        RCTLogInfo(@"----------°°°°°°° PAUSE °°°°°° %@-----------", _paused);
+        RCTLogInfo(_paused ? @"----------°°°°°°° PAUSE °°°°°° -----------" : @"----------°°°°°°° UNPAUSE °°°°°° -----------");
         [self setPaused:_paused];
       }
       _playerBufferEmpty = NO;
