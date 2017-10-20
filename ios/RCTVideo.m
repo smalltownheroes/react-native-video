@@ -477,7 +477,7 @@ static NSString *const timedMetadata = @"timedMetadata";
   if(self.onVideoEnd) {
       self.onVideoEnd(@{@"target": self.reactTag});
   }
-  RCTLogInfo(@"########## repeat?: %@ ############", _repeat);
+  RCTLogInfo(@"########## repeat? ############");
   if (_repeat) {
     AVPlayerItem *item = [notification object];
     [item seekToTime:kCMTimeZero];
