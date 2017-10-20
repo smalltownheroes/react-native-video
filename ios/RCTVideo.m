@@ -139,6 +139,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)dealloc
 {
+  RCTLogInfo(@"########## dealloc ############");
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [self removePlayerItemObservers];
   [self removePlayerLayer];
@@ -461,14 +462,6 @@ static NSString *const timedMetadata = @"timedMetadata";
                                            selector:@selector(playerItemDidReachEnd:)
                                                name:AVPlayerItemDidPlayToEndTimeNotification
                                              object:[_player currentItem]];
-
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:AVPlayerItemDidPlayToEndTimeNotification
-                                                object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(playerItemDidReachEnd:)
-                                               name:AVPlayerItemDidPlayToEndTimeNotification
-                                             object:nil];
 
   [[NSNotificationCenter defaultCenter] removeObserver:self
                                                   name:AVPlayerItemPlaybackStalledNotification
@@ -847,6 +840,7 @@ static NSString *const timedMetadata = @"timedMetadata";
   [self removePlayerItemObservers];
 
   _eventDispatcher = nil;
+  RCTLogInfo(@"########## removeFromSuperview ############");
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 
   [super removeFromSuperview];
