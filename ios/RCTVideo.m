@@ -462,6 +462,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)attachListeners
 {
+  RCTLogInfo(@"##### PPPPPP attachListeners PPPPP ####");
   // listen for end of file
   [[NSNotificationCenter defaultCenter] removeObserver:self
                                                   name:AVPlayerItemDidPlayToEndTimeNotification
