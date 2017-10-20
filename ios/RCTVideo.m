@@ -425,7 +425,7 @@ static NSString *const timedMetadata = @"timedMetadata";
       //   [self setPaused:_paused];
       // }
       // _playerBufferEmpty = NO;
-      self.onVideoBuffer(@{@"isBuffering": @(NO), @"target": self.reactTag});
+      // self.onVideoBuffer(@{@"isBuffering": @(NO), @"target": self.reactTag});
     }
    } else if (object == _playerLayer) {
       if([keyPath isEqualToString:readyForDisplayKeyPath] && [change objectForKey:NSKeyValueChangeNewKey]) {
