@@ -535,6 +535,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)setPaused:(BOOL)paused
 {
+  RCTLogInfo(paused ? @"setPause true" : @"setPause false");
   if (paused) {
     [_player pause];
     [_player setRate:0.0];
@@ -626,6 +627,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 
   [self setResizeMode:_resizeMode];
   [self setRepeat:_repeat];
+  RCTLogInfo(paused ? @"applyModifiers setPause true" : @"applyModifiers setPause false");
   [self setPaused:_paused];
   [self setControls:_controls];
 }
