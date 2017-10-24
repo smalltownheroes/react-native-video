@@ -139,7 +139,6 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)dealloc
 {
-  RCTLogInfo(@"########## dealloc ############");
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [self removePlayerItemObservers];
   [self removePlayerLayer];
@@ -333,7 +332,6 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-   RCTLogInfo(@"########## observeValueForKeyPath? %@ ############", keyPath);
    if (object == _playerItem) {
     // When timeMetadata is read the event onTimedMetadata is triggered
     if ([keyPath isEqualToString: timedMetadata])
@@ -408,7 +406,6 @@ static NSString *const timedMetadata = @"timedMetadata";
                              @"target": self.reactTag});
       }
 
-        RCTLogInfo(@"########## onVideoLoad ############");
         [self attachListeners];
         [self applyModifiers];
       } else if(_playerItem.status == AVPlayerItemStatusFailed && self.onVideoError) {
@@ -418,13 +415,10 @@ static NSString *const timedMetadata = @"timedMetadata";
       }
     } else if ([keyPath isEqualToString:playbackBufferEmptyKeyPath]) {
       _playerBufferEmpty = YES;
-      RCTLogInfo(@"----------°°°°°°° playbackBufferEmptyKeyPath °°°°°°-----------");
       self.onVideoBuffer(@{@"isBuffering": @(YES), @"target": self.reactTag});
     } else if ([keyPath isEqualToString:playbackLikelyToKeepUpKeyPath]) {
       // Continue playing (or not if paused) after being paused due to hitting an unbuffered zone.
-      RCTLogInfo(@"----------°°°°°°° playbackLikelyToKeepUpKeyPath °°°°°°-----------");
       if ((!(_controls || _fullscreenPlayerPresented) || _playerBufferEmpty) && _playerItem.playbackLikelyToKeepUp) {
-        RCTLogInfo(_paused ? @"----------°°°°°°° PAUSE °°°°°° -----------" : @"----------°°°°°°° UNPAUSE °°°°°° -----------");
         [self setPaused:_paused];
       }
       _playerBufferEmpty = NO;
@@ -438,9 +432,7 @@ static NSString *const timedMetadata = @"timedMetadata";
     }
   } else if (object == _player) {
       if([keyPath isEqualToString:playbackRate]) {
-          RCTLogInfo(@"########## playbackRate ############");
           if(self.onPlaybackRateChange) {
-              RCTLogInfo(@"########## onPlaybackRateChange ############");
               self.onPlaybackRateChange(@{@"playbackRate": [NSNumber numberWithFloat:_player.rate],
                                           @"target": self.reactTag});
           }
@@ -449,19 +441,16 @@ static NSString *const timedMetadata = @"timedMetadata";
                   self.onPlaybackResume(@{@"playbackRate": [NSNumber numberWithFloat:_player.rate],
                                           @"target": self.reactTag});
               }
-              RCTLogInfo(@"########## _playbackStalled NO ############");
               _playbackStalled = NO;
           }
       }
   } else {
-      RCTLogInfo(@"########## drop off ############");
       [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
   }
 }
 
 - (void)attachListeners
 {
-  RCTLogInfo(@"##### PPPPPP attachListeners PPPPP ####");
   // listen for end of file
   [[NSNotificationCenter defaultCenter] removeObserver:self
                                                   name:AVPlayerItemDidPlayToEndTimeNotification
@@ -482,7 +471,6 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)playbackStalled:(NSNotification *)notification
 {
-  RCTLogInfo(@"########## playbackStalled? ############");
   if(self.onPlaybackStalled) {
     self.onPlaybackStalled(@{@"target": self.reactTag});
   }
@@ -491,14 +479,12 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification
 {
-  RCTLogInfo(@"########## repeat? ############");
   if(self.onVideoEnd) {
       self.onVideoEnd(@{@"target": self.reactTag});
   }
   if (_repeat) {
     AVPlayerItem *item = [notification object];
     [item seekToTime:kCMTimeZero];
-    RCTLogInfo(@"########## seekToTime ############");
     // [self applyModifiers];
   }
 }
@@ -536,7 +522,6 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)setPaused:(BOOL)paused
 {
-  RCTLogInfo(paused ? @"setPause true" : @"setPause false");
   if (paused) {
     [_player pause];
     [_player setRate:0.0];
@@ -628,13 +613,11 @@ static NSString *const timedMetadata = @"timedMetadata";
 
   [self setResizeMode:_resizeMode];
   [self setRepeat:_repeat];
-  RCTLogInfo(_paused ? @"applyModifiers setPause true" : @"applyModifiers setPause false");
   [self setPaused:_paused];
   [self setControls:_controls];
 }
 
 - (void)setRepeat:(BOOL)repeat {
-  RCTLogInfo(repeat ? @"------------------- REPEAT TRUE ############" : @"------------------- REPEAT FALSE ############");
   _repeat = repeat;
 }
 
@@ -852,7 +835,6 @@ static NSString *const timedMetadata = @"timedMetadata";
   [self removePlayerItemObservers];
 
   _eventDispatcher = nil;
-  RCTLogInfo(@"########## removeFromSuperview ############");
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 
   [super removeFromSuperview];
