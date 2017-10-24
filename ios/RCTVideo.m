@@ -473,11 +473,11 @@ static NSString *const timedMetadata = @"timedMetadata";
 
   [[NSNotificationCenter defaultCenter] removeObserver:self
                                                   name:AVPlayerItemPlaybackStalledNotification
-                                                object:[_player currentItem]];
+                                                object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(playbackStalled:)
                                                name:AVPlayerItemPlaybackStalledNotification
-                                             object:[_player currentItem]];
+                                             object:nil];
 }
 
 - (void)playbackStalled:(NSNotification *)notification
