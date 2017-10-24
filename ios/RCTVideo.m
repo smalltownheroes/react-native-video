@@ -634,6 +634,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 }
 
 - (void)setRepeat:(BOOL)repeat {
+  RCTLogInfo(repeat ? @"------------------- REPEAT TRUE ############" : @"------------------- REPEAT FALSE ############");
   _repeat = repeat;
 }
 
